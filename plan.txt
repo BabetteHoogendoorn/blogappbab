@@ -1,0 +1,18 @@
+plan
+-create files and directories
+-create table for postgres in app.js
+-app.js account.jade login.jade
+-in login.jade
+  -create post
+  -view list of posts
+  -view specific posts with comments
+  -comment box
+
+
+  1. create login page
+  2. when logged in: tabs with: 1. list of own post
+                                2. list of everyones posts
+                                3. view specific post + comments
+                                4. leave comments on post
+
+need --> app.js index.jade (login)
