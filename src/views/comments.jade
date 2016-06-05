@@ -1,0 +1,22 @@
+doctype html
+html
+  title The best blogApp!
+  head
+  body
+    each post in allPosts
+      h1=post.userid
+      h2= post.title
+      h3= post.body
+      h4=comment.userid
+      h5=comment.body
+
+    br
+    a(href='/createpost') create post
+    br
+    a(href='/posts') see your own posts
+    br
+    a(href='/allposts') see posts of others
+    br
+    a(href='/') home
+    br
+    a(href='/logout') log out

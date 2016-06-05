@@ -1,0 +1,40 @@
+doctype html
+html
+  title The best blogApp!
+  head
+  h1 You will find all posts of every user on this page!
+  body
+    each post in allPosts
+      Post #{post.user.name} says:
+      h2= post.title
+      h3= post.body
+      p Post number: #{post.id}
+      br
+      p To read just this post click 
+        a(href="/post/#{post.id}") here!
+      each comm in post.comments
+        p= comm.body
+  
+        
+        
+      form(action='/comments', method='post')
+        label(for='name') comment:
+        input#name(type='text' name="comment")
+        input(name='id' value="#{post.id}" hidden)
+        button(type='submit') Submit comment
+        br
+        br
+        br
+
+
+
+    br
+    a(href='/createpost') create post
+    br
+    a(href='/posts') see your own posts
+    br
+    a(href='/allposts') see posts of others
+    br
+    a(href='/') home
+    br
+    a(href='/logout') log out

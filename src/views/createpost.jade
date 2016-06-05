@@ -1,0 +1,27 @@
+doctype html
+html
+  head
+  body
+  form(action='/createpost', method='post')
+    label(for='name') title:
+    input#name(type='text' name="title")
+    label(for='name') message:
+    input#name(type='text' name="message")
+    button(type='submit') Send your message
+
+
+
+    br
+    a(href='/createpost') create post
+    br
+    a(href='/posts') see your own posts
+    br
+    a(href='/allposts') see posts of others
+    br
+    a(href='/specific') see one post of someone else with comments
+    br
+    a(href='/comments') leave a comment on the post
+    br
+    a(href='/') home
+    br
+    a(href='/logout') log out

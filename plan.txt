@@ -1,8 +1,7 @@
 plan
 -create files and directories
 -create table for postgres in app.js
--app.js account.jade login.jade
--in login.jade
+-app.js index.jade register.jade login.jade 
   -create post
   -view list of posts
   -view specific posts with comments

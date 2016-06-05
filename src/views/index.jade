@@ -1,27 +1,18 @@
 doctype html
 html
+	title The best blogApp!
 	head
-		script(src='http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js')
-		script.
-			$(document).ready(function () {
-				$('#submit').click(function(event) {
-					if($('#email').val().trim().length === 0 || $('#password').val().trim().length === 0) {
-						event.preventDefault();
-						$('#error-message').html("Your username or password is empty.");
-					}
-				});
-			});
+		h1 Welcome to the BlogApp
+		
 	body
-		if user
-			a(href='/profile') view profile
+			a(href='/') Home
 			br
-			a(href='/logout') log out
-		else
-			form(action='/login' method='post')
-				label email
-				input#email(name='email' required)
-				label password
-				input#password(name='password' required)
-				input(type='submit' value='login' id='submit')
-
-		h2#error-message= message
+		if !user
+			a(href='/register') Register
+			br
+			a(href='/login') Login
+			br
+		if user
+			a(href="/users/" + user.id) profile
+			br
+			a(href="/logout") logout

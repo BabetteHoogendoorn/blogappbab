@@ -1,0 +1,31 @@
+{
+  "name": "blogapplication",
+  "version": "1.0.0",
+  "description": "blogapplication",
+  "main": "app.js",
+  "scripts": {
+    "test": "hi"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nycda-geeks/BlogApplication.git"
+  },
+  "keywords": [
+    "blogapplication"
+  ],
+  "author": "babette",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nycda-geeks/BlogApplication/issues"
+  },
+  "homepage": "https://github.com/nycda-geeks/BlogApplication#readme",
+  "dependencies": {
+    "body-parser": "^1.15.1",
+    "express": "^4.13.4",
+    "morgan": "^1.7.0",
+    "sequelize": "^3.23.3"
+  },
+  "devDependencies": {
+    "nodemon": "^1.9.2"
+  }
+}
