@@ -256,6 +256,6 @@ app.get('/post/:id', function (request, response) {
 
 
 var server = app.listen(7000, function () {
-	console.log('Hallo ik ben bab')
+	console.log('Hallo ik ben b')
 	console.log('Example app listening on port: ' + server.address().port);
 });
