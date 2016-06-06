@@ -4,8 +4,8 @@ var Sequelize = require('sequelize');
 var express = require('express');
 var bodyParser = require('body-parser');
 var session = require('express-session');
-var app = express();
 var logger = require('morgan');
+var app = express();
 
 //connect to server
 var sequelize = new Sequelize ('blog', 'babettehoogendoorn', null, {
