@@ -8,7 +8,7 @@ var app = express();
 var logger = require('morgan');
 
 //connect to server
-var sequelize = new Sequelize ('babettehoogendoorn', 'babettehoogendoorn', null, {
+var sequelize = new Sequelize ('blog', 'babettehoogendoorn', null, {
 	host: 'localhost',
 	dialect: 'postgres',
 	define: {
@@ -42,13 +42,37 @@ var Comment = sequelize.define('comment', {
 
 //relation between tables
 User.hasMany(Post);
+User.hasMany(Comment);
+Comment.belongsTo(User);
 Post.belongsTo(User);
 Post.hasMany(Comment);
 Comment.belongsTo(Post);
 
-
-sequelize.sync().then( function() { //after models
+//synching with database + create two users automatically
+sequelize.sync({force: true}).then( function() { //after models
 	console.log('sync done')
+	User.create({
+		name: 'bab',
+		email: 'bab',
+		password: 'bab'
+	}).then(function(thebab){
+		console.log('bab is alive');
+		thebab.createPost({
+			title: 'Bab says hello',
+			body: 'Hallo, ik ben bab'
+		})
+	})
+	User.create({
+		name: 'joep',
+		email: 'joep',
+		password: 'joep'
+	}).then(function(thejoep){
+		console.log('joep is alive');
+		thejoep.createPost({
+			title: 'Joep says hello',
+			body: 'Hallo, ik ben joep'
+		})
+	})
 });
 
 
@@ -60,8 +84,8 @@ app.use(session({
 	saveUninitialized: false
 }));
 
-
 app.use(logger('Dev'));
+
 //load index page
 app.get('/', function (request, response) {
 	response.render('index', {
@@ -74,6 +98,7 @@ app.get('/register', function(request, response){
 	response.render('register')
 });
 
+//stores data in database
 app.post('/register', bodyParser.urlencoded({extended: true}), function (request, response) {
 	User.create({
 		name:request.body.name,
@@ -181,13 +206,17 @@ app.get('/posts', function (request, response) {
 	});
 });
 
-//list of everyone's posts
+
+//list of all posts
 app.get('/allposts', function (request, response) {
 
 	Post.findAll({
-		include: [User, Comment]
+		include: [
+			{model: User},
+			{model: Comment,
+			include: {model: User}}
+		]
 	}).then(function (posts) {
-
 		response.render('allposts', {
 			allPosts: posts
 		});
@@ -195,19 +224,16 @@ app.get('/allposts', function (request, response) {
 	});
 });
 
-
-
-//list comments in own posts
+//list comments in all posts
 app.post('/comments', bodyParser.urlencoded({extended: true}), function (request, response) {
-	Post.findOne({
-		where: {
-			id: request.body.id
-		}
-	}).then(function (thePost){
-		thePost.createComment({
-			body: request.body.comment
-		}).then (function () {
-			response.redirect('/allposts');
+	Promise.all([
+		Post.findOne({ where: { id: request.body.id } }),
+		User.findOne({ where: { id: request.session.user.id } })
+	]).then(function(theData){
+		theData[1].createComment ({ body: request.body.comment }).then(function(theComment){
+			theComment.setPost(theData[0]).then(function(){
+				response.redirect('/allposts')
+			});
 		});
 	});
 });
@@ -218,15 +244,15 @@ app.get('/post/:id', function (request, response) {
 	var postid = request.params.id
 	Post.findAll({
 		where: {
-		id:postid
-	},
-	include: [User, Comment]
-}).then(function(posts) {
-			response.render('onepost', {
-				posts:posts
-			});
+			id:postid
+		},
+		include: [User, Comment]
+	}).then(function(posts) {
+		response.render('onepost', {
+			posts:posts
 		});
 	});
+});
 
 
 var server = app.listen(7000, function () {

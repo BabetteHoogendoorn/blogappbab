@@ -12,19 +12,16 @@ html
       br
       p To read just this post click 
         a(href="/post/#{post.id}") here!
+      p Comments:
       each comm in post.comments
-        p= comm.body
-  
+        p #{comm.user.name} says #{comm.body}
         
-        
+
       form(action='/comments', method='post')
         label(for='name') comment:
         input#name(type='text' name="comment")
         input(name='id' value="#{post.id}" hidden)
         button(type='submit') Submit comment
-        br
-        br
-        br
 
 
 
