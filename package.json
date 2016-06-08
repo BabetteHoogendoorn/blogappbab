@@ -20,9 +20,11 @@
   },
   "homepage": "https://github.com/nycda-geeks/BlogApplication#readme",
   "dependencies": {
+    "bcrypt": "^0.8.6",
     "body-parser": "^1.15.1",
     "express": "^4.13.4",
     "express-session": "^1.13.0",
+    "jade": "^1.11.0",
     "morgan": "^1.7.0",
     "require": "^2.4.20",
     "sequelize": "^3.23.3"

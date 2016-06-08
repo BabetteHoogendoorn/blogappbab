@@ -5,6 +5,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var session = require('express-session');
 var logger = require('morgan');
+var bcrypt = require('bcrypt');
 var app = express();
 
 //connect to server
@@ -13,7 +14,7 @@ var sequelize = new Sequelize ('blog', 'babettehoogendoorn', null, {
 	dialect: 'postgres',
 	define: {
 		timestamps: false
-	}
+	};
 });
 
 //connect to jade
