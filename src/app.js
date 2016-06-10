@@ -4,8 +4,8 @@ var Sequelize = require('sequelize');
 var express = require('express');
 var bodyParser = require('body-parser');
 var session = require('express-session');
-var logger = require('morgan');
 var bcrypt = require('bcrypt');
+var pg = require('pg');
 var app = express();
 
 //connect to server
@@ -84,7 +84,6 @@ var sequelize = new Sequelize ('blog', 'babettehoogendoorn', null, {
 		saveUninitialized: false
 	}));
 
-	// app.use(logger('Dev'));
 
 	//load index page
 	app.get('/', function (request, response) {
